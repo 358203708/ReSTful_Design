@@ -1,0 +1,468 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Documentation for API endpoints</title>
+    <link href="_css/styles.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <header role="banner">
+        <a name="top"></a>
+        <center>
+            <h1>Loan System API</h1></center>
+        <center>
+            <h2>Documentation for API endpoints</h2></center>
+        <nav id="navigation">
+            <ul>
+                <li>
+                    <a href="#overview">Loan System Overview
+</a></li>
+                <br>
+                <li><a href="#endpoint1">~/accounts
+</a></li>
+                <li><a href="#endpoint2">~/accounts/&#123;account-id&#125;
+</a></li>
+                <li><a href="#endpoint3">~/account/&#123;account-id&#125;/fines
+</a></li>
+                <li><a href="#endpoint4">~/account/&#123;account-id&#125;/loans
+</a></li>
+                <li><a href="#endpoint5">~/account/&#123;account-id&#125;/loans/book-id
+
+                </a></li>
+                <li><a href="#endpoint6">~/account/&#123;account-id&#125;/profiles
+
+                    </a>
+                </li>
+                <li><a href="#endpoint7">~/books/&#123;book-id&#125;
+
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main role="main">
+        <article>
+            <section id="overview">
+                <h3>Overview</h3>
+                <p>In order to allow users to loan books in the library system, some endpoints and tags are addded in this existing system.</p>
+                <!-- <p>The new endpoints and tags are shown below</p>
+                <img src="_image/accounts_new.png" alt="accounts_new.png" width="900" height="390" align="center">
+                <img src="_image/books_new_tags.png" alt="books_new_tags" width="250" height="130" align="center">-->
+                <p>And the state diagram of the loan system below illustrates how the request processed by the loan system when the user sends a loan request.</p>
+                <img src="_image/Loan%20system%20state%20diagram.png" alt="Loan%20system%20state%20diagram" align="center">
+                <p>First of all, the loan system has to ensure the book users want to loan is available, so the system checks the value of the tag &#123;availability&#125;. If the valuse is true, then process to next step, or give the user a response: request rejected.</p>
+                <p>When the book is available, the system verify the user's account id, if user's account id is not valid, the system redirects to a webpage for registeration.</p>
+                <p>If the user has a valid account, the loan system needs to check the value of the tag &#123;loans quantity&#125;. If the user has less than 10 active loans, the request moves to next procedure, or the loan system redirects to the webpage for returning books.
+                </p>
+                <p>If the value of tag &#123;fine state&#125; is true, it means that the user owes a fine and he needs to pay the fine before loaning a book. If the user does not owe a fine, he is qualified to loan books.</p>
+                <p>Finally, the system needs to add some loan detail to book and user's account, then give a response: book loaned to the user. In other words, some values of tags (e.g. avaliablity, loan date, due date) are changed when the user loans a book.</p>
+                <div align="center"><a href="#top">Back to Top</a></div>
+            </section>
+            <section id="endpoint1">
+                <h3>1.http://waisvm-rfp1.ecs.soton.ac.uk/accounts
+</h3>
+
+                <h4>Aim</h4>
+                <p>This endpoint is designed for users to manage their accounts.</p>
+                <h4>Http verbs</h4>
+                <p>GET, POST, HEAD, OPTIONS can be used in this endpoint.</p>
+                <h4>Meanings of http verbs
+</h4>
+                <p>When using OPTIONS, it returns all http verbs that can be used in this endpoint.</p>
+                <p> By using POST, a new account can be created in this library system. And if we only want to get a header of the response instead of body, we can use HEAD.</p>
+                <p>When using http verb GET, it returns a collection of accounts in the library system. All accounts are listed in the tags &#123;list-item&#125;&#123;/list-item&#125;, and we can know the abstract of each account.</p>
+
+                <h4>Parameters</h4>
+                <center>
+                    <table>
+                        <tr>
+                            <td align="left">url</td>
+                            <td align="left">Returns a collection of URLs of accounts. The type of this value is field. This value is required when adding a new account in this loan system.
+                                <br>
+                                <br><b>Example Values:</b> http://waisvm-rfp1.ecs.soton.ac.uk/accounts/3830494909</td>
+
+                        </tr>
+                    </table>
+                </center>
+                <h4>Example</h4>
+
+                <img src="_image/accounts_example.png" alt="accounts_example" align="center">
+
+                <div align="center"><a href="#top">Back to Top</a></div>
+            </section>
+            <section id="endpoint2">
+                <h3>2.http://waisvm-rfp1.ecs.soton.ac.uk/accounts/&#123;account-id&#125;
+</h3>
+                <h4>Aim</h4>
+                <p>This endpoint is designed for users to store information about their profiles and loans.
+                </p>
+                <h4>Http verbs</h4>
+                <p>GET, PUT, PATCH, DELETE, HEAD, OPTIONS can be used on this resource.
+                </p>
+                <h4>Meanings of http verbs
+</h4>
+                <p>When using OPTIONS, it returns all http verbs that can be used in this endpoint.
+                </p>
+                <p>By using PUT and PATCH, users can update information of the account in this library system.
+                </p>
+                <p>Besides, DELETE can help to delete the account or some specific information in the account. And if we only want to get a header of the response instead of body, we can use HEAD.
+                </p>
+                <p>When using http verb GET, it returns all information about the specific account that we requested.
+                </p>
+
+                <h4>Parameters</h4>
+                <center>
+                    <table>
+                        <tr>
+                            <td align="left">account_id</td>
+                            <td align="left">Returns the account id of this account. This value is required when creating a new account and its type is integer.
+                                <br>
+                                <br><b>Example Values:</b>2938203090
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td align="left">fines</td>
+                            <td align="left">Returns the URL of fines. This value is required and not only readable when creating a new account.
+                                <br>
+                                <br><b>Example Values:</b> http://waisvm-rfp1.ecs.soton.ac.uk/accounts/ &#123;account-id&#125;/fines
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td align="left">loans</td>
+                            <td align="left">Returns the URL of loans. This value is required and not only readable when creating a new account.
+                                <br>
+                                <br><b> Example Values: </b>http://waisvm-rfp1.ecs.soton.ac.uk/accounts/ &#123;account-id&#125;/loans
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td align="left">profiles</td>
+                            <td align="left">Returns the URL of profiles. This value is required and not only readable when creating a new account.
+                                <br>
+                                <br><b> Example Values:</b> http://waisvm-rfp1.ecs.soton.ac.uk/accounts/ &#123;account-id&#125;/profiles
+                            </td>
+
+                        </tr>
+                    </table>
+                </center>
+                <h4>Example</h4>
+                <img src="_image/accounts_accountid_example.png" alt="accounts_accountid_example" align="center">
+                <div align="center"><a href="#top">Back to Top</a></div>
+            </section>
+            <section id="endpoint3">
+                <h3>3.http://waisvm-rfp1.ecs.soton.ac.uk/accounts/&#123;account-id&#125;/fines
+
+</h3>
+                <h4>Aim</h4>
+                <p>This endpoint is designed for managing the state of fines for users.
+                </p>
+                <h4>Http verbs</h4>
+                <p>GET, PUT, PATCH, DELETE, HEAD, OPTIONS can be used on this resource.
+                </p>
+                <h4>Meanings of http verbs
+</h4>
+                <p>When using OPTIONS, it returns all http verbs that can be used in this endpoint.
+                </p>
+                <p>By using PUT and PATCH, users can update status of fines for the specific account in this library system.
+                </p>
+                <p>Besides, DELETE can help to delete specific information in the fine endpoint. And if we just want to get a header of the response instead of body, we can use HEAD.
+                </p>
+                <p>When using http verb GET, it returns all information about the fine endpoint.
+                </p>
+
+                <h4>Parameters</h4>
+                <center>
+                    <table>
+                        <tr>
+                            <td align="left">fine state</td>
+                            <td align="left">Returns fine state of the specific account that we requested. The type of fine state is Boolean and its value is true or false. True represents that this user owes a fine. On the contrary, false means that the user does not have a fine. This value is required and not only readable.
+
+                                <br>
+                                <br><b>Example Values:</b> true </td>
+                        </tr>
+                        <tr>
+                            <td align="left">fine amount</td>
+                            <td align="left">Returns the fine amount of the specific account. The type of this value is float. And the value is required and not only readable. If the user does not owe a fine, the value is 0.00.
+
+                                <br>
+                                <br><b> Example Values: </b>60.00
+                            </td>
+
+                        </tr>
+
+                    </table>
+                </center>
+                <h4>Example</h4>
+                <img src="_image/accounts_accountid_fines.png" alt="accounts_accountid_fines" align="center">
+                <div align="center"><a href="#top">Back to Top</a></div>
+            </section>
+            <section id="endpoint4">
+                <h3>4.http://waisvm-rfp1.ecs.soton.ac.uk/accounts/&#123;account-id&#125;/loans
+</h3>
+                <h4>Aim</h4>
+                <p>This endpoint is designed for users to manage their loans, i.e. obtain basic information about loans.
+                </p>
+                <h4>Http verbs</h4>
+                <p>GET, POST, HEAD, OPTIONS can be used in this endpoint.
+                </p>
+                <h4>Meanings of http verbs
+</h4>
+                <p>When using OPTIONS, it returns all http verbs that can be used in this endpoint.
+                </p>
+                <p>By using POST, a new loan can be added in this account. And if we only want to get a header of the response instead of body, we can use HEAD.
+                </p>
+                <p>When using http verb GET, it returns a collection of loans in the account. All loans are listed in the tags &#123;list-item&#125;&#123;/list-item&#125;, and we can know the abstract of each loan.</p>
+                <h4>Paramters</h4>
+                <table>
+                    <tr>
+                        <td align="left">loan quantity</td>
+                        <td align="left">Returns loans quantity of the specific account that we requested. The type of loan quantity is integer. This value is required and not only readable.
+                            <br>
+                            <br><b>Example Values:</b> 5 </td>
+                    </tr>
+                    <tr>
+                        <td align="left">url</td>
+                        <td align="left">Returns a collection of URLs of loans. The type of this value is field. This value is required when adding a new loan in this accout.
+                            <br>
+                            <br><b>Example Values:</b> http://waisvm-rfp1.ecs.soton.ac.uk/books/92 </td>
+                    </tr>
+                </table>
+                <h4>Example</h4>
+                <img src="_image/account_accountid_loans_example.png" alt="account_accountid_loans_example" align="center">
+                <div align="center"><a href="#top">Back to Top</a></div>
+            </section>
+            <section id="endpoint5">
+                <h3>5.http://waisvm-rfp1.ecs.soton.ac.uk/accounts/&#123;account-id&#125;/loans/&#123;book-id&#125;
+
+</h3>
+                <h4>Aim</h4>
+                <p>This endpoint is designed for users to check the status of each loan.
+                </p>
+                <h4>Http verbs</h4>
+                <p>GET, PUT, PATCH, DELETE, HEAD, OPTIONS can be used on this resource.
+                </p>
+                <h4>Meanings of http verbs
+</h4>
+                <p>When using OPTIONS, it returns all http verbs that can be used in this endpoint.
+                </p>
+                <p>By using PUT and PATCH, users or library staff can update information of the loans in this account.
+                </p>
+                <p>Besides, DELETE can help to delete the loans or some specific information about loans. And if we only want to get a header of the response instead of body, we can use HEAD.
+
+                </p>
+                <p>When using http verb GET, it returns all information about the specific loan that we requested.
+                </p>
+
+                <h4>Parameters</h4>
+                <center>
+                    <table>
+                        <tr>
+                            <td align="left">url</td>
+                            <td align="left">Returns the URL of the specific loan, and the book id of the specific loan is same to that in the library system. When the user loan a new book, the URL is required and only readable.
+
+                                <br>
+                                <br><b>Example Values:</b>http://waisvm-rfp1.ecs.soton.ac.uk/books/92
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td align="left">title</td>
+                            <td align="left">Returns the name of the loan that we requested. The type of title is string and its max length is 255. This value is required and only readable when a new book is loaned.
+                                <br>
+                                <br><b> Example Values: </b>Steve Jobs
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td align="left">loan date</td>
+                            <td align="left">Returns the loan date of the loan that we requested. The type of loan date is date. This value is required and not only readable when a new book is loaned.
+                                <br>
+                                <br><b> Example Values:</b> 2015-10-24
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td align="left">renewal times</td>
+                            <td align="left">Returns the renewal times of the specific loan. In other words, it indicates that how many times the user renewal this loan. The type of renewal times is integer and its value ranges from 0 to 1. This value is required and not only readable when a new loan is created.
+                                <br>
+                                <br><b> Example Values:</b> 0
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">fine state</td>
+                            <td align="left">Returns fine state of the specific book that we requested. The type of fine state is Boolean and its value is true or false. True represents that this user should pay a fine for this book. On the contrary, false means that the user does not have a fine. This value is required and not only readable.
+
+                                <br>
+                                <br><b> Example Values:</b> true
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">fine amount</td>
+                            <td align="left">Returns the fine amount of the specific loan. The type of this value is float. And the value is required and not only readable when loan a new book. If the loan is new or has no fine, the value is 0.00.
+
+                                <br>
+                                <br><b> Example Values:</b> 60.00
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">due date</td>
+                            <td align="left">Returns the due date of the loan that we requested. The type of due date is date. This value is required and not only readable when a new book is loaned.
+                                <br>
+                                <br><b> Example Values:</b> 2015-11-24
+                            </td>
+                        </tr>
+                    </table>
+                </center>
+                <h4>Example</h4>
+                <img src="_image/accounts_accountid_loans_bookid_example.png" alt="accounts_accountid_loans_bookid_example" align="center">
+                <div align="center"><a href="#top">Back to Top</a></div>
+            </section>
+            <section id="endpoint6">
+                <h3>6.http://waisvm-rfp1.ecs.soton.ac.uk/accounts/&#123;account-id&#125;/profiles
+
+</h3>
+                <h4>Aim</h4>
+                <p>This endpoint is designed for users to store their profiles.
+                </p>
+                <h4>Http verbs</h4>
+                <p>GET, PUT, PATCH, DELETE, HEAD, OPTIONS can be used on this resource.
+
+                </p>
+                <h4>Meanings of http verbs
+</h4>
+                <p>When using OPTIONS, it returns all http verbs that can be used in this endpoint.
+
+                </p>
+                <p>By using PUT and PATCH, users can update their profiles for the specific account in this library system.
+
+                </p>
+                <p>DELETE can help to delete specific information in the profiles endpoint. And if we only want to get a header of the response instead of body, we can use HEAD.
+
+                </p>
+                <p>When using http verb GET, it returns all information about the profiles endpoint.
+
+                </p>
+
+                <h4>Parameters</h4>
+                <center>
+                    <table>
+                        <tr>
+                            <td align="left">name</td>
+                            <td align="left">Returns the name of the specific user who has this account. The type of name is string. This value is required and not only readable when the user creates a new account.
+
+                                <br>
+                                <br><b>Example Values:</b> Jason Smith
+
+                        </tr>
+                        <tr>
+                            <td align="left">address</td>
+                            <td align="left">Returns the address of the specific user. The type of address is string. This value is not required and not only readable when the user creates a new account.
+
+                                <br>
+                                <br><b> Example Values: </b>Highfield Campus, Southampton
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">gender</td>
+                            <td align="left">Returns the gender of the specific user. The type of this value is Male or Female. And the value is required and not only readable.
+                                <br>
+                                <br><b> Example Values:</b>Male
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td align="left">contacts</td>
+                            <td align="left">Returns the contacts of the specific user. The type of it is string and its max length is 11. This value is not required and not only readable when the user creates a new account.
+
+                                <br>
+                                <br><b> Example Values:</b>07541961345
+                            </td>
+
+                        </tr>
+                    </table>
+                </center>
+                <h4>Example</h4>
+                <img src="_image/accounts_accountid_profiles_example.png" alt="accounts_accountid_profiles_example" align="center">
+                <div align="center"><a href="#top">Back to Top</a></div>
+            </section>
+            <section id="endpoint7">
+                <h3>7.http://waisvm-rfp1.ecs.soton.ac.uk/books/
+&#123;book-id&#125;
+</h3>
+                <h4>Aim</h4>
+                <p>In the existing library system, the ~/books/ &#123;book-id&#125; endpoint already has some basic information of each book, but this endpoint is extended and has more parameters or tags. In other word, some new parameters or tags are added in each book in order to achieve loan function.
+
+                </p>
+                <h4>Http verbs</h4>
+                <p>GET, PUT, PATCH, DELETE, HEAD, OPTIONS can be used on this resource.
+                </p>
+                <h4>Meanings of http verbs
+</h4>
+                <p>When using OPTIONS, it returns all http verbs that can be used in this endpoint.
+                </p>
+                <p>By using PUT and PATCH, we can update information of the profiles we have posted in this library system.
+
+                </p>
+                <p>Besides, DELETE can help to delete some specific information we posted. And if we just want to get a header of the response instead of body, we can use HEAD.
+                </p>
+                <p>When using http verb GET, it returns all information about the specific book that we requested.
+
+                </p>
+
+                <h4>Parameters</h4>
+                <center>
+                    <table>
+                        <tr>
+                            <td align="left">availability</td>
+                            <td align="left">Specifies the loan state of the specific book in the library system. The value of availability is Boolean. When the user loans the specific book, this value changes from true to false (True means this book is available, while false means it is not available). This value is required and not only readable.
+                                <br>
+                                <br><b>Example Values:</b> true
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td align="left">account-id</td>
+                            <td align="left">Returns the account id of the user who loans the book. The type of account id is string. This value is required and not only readable.
+
+                                <br>
+                                <br><b> Example Values: </b>Jason Wu
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td align="left">loan date</td>
+                            <td align="left">Returns the loan date of the book. The type of this value is date. This value is required and not only readable.
+
+                                <br>
+                                <br><b> Example Values:</b> 2015-10-24
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td align="left">due date</td>
+                            <td align="left">Returns the due date of the book. The type of this value is date. This value is required and not only readable.
+
+                                <br>
+                                <br><b> Example Values:</b> 2015-11-24
+                            </td>
+
+                        </tr>
+                    </table>
+                </center>
+                <h4>Example</h4>
+                <img src="_image/books_bookid_example.png" alt="books_bookid_example" align="center">
+            </section>
+
+        </article>
+    </main>
+    <footer role="contentinfo">
+        <a href="#top"><b>Back to Top</b> </a>
+        <p>ReST Coursework @ Web Architecture | Shanchuan Wu (Sw9n14)</p>
+    </footer>
+</body>
+
+</html>
