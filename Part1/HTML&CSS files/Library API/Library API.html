@@ -1,0 +1,393 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Documentation for API endpoints</title>
+    <link href="_css/styles.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <header role="banner">
+        <a name="top"></a>
+        <center>
+            <h1>Library System API</h1></center>
+        <center>
+            <h2>Documentation for API endpoints</h2></center>
+        <nav id="navigation">
+            <ul>
+                <li><a href="#endpoint1">Root</a></li>
+                <li><a href="#endpoint2">~/books</a></li>
+                <li><a href="#endpoint3">~/authors</a></li>
+                <li><a href="#endpoint4">~/publihsers</a></li>
+                <li><a href="#endpoint5">~/books/&#123;book-id&#125;
+                </a></li>
+                <li><a href="#endpoint6">~/authors/&#123;author-id&#125;
+                    </a>
+                </li>
+                <li><a href="#endpoint7">~/publihsers/&#123;author-id&#125;
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main role="main">
+        <article>
+            <section id="endpoint1">
+                <h3>1. http://waisvm-rfp1.ecs.soton.ac.uk/
+</h3>
+                <p>When using http verb OPTIONS, we can obtain the output of this URI. The output is shown as below.</p>
+                <aside>
+                    Allow → OPTIONS, GET
+                    <br>Connection → Keep-Alive
+                    <br>Content-Type → application/xml; charset=utf-8
+                    <br>Date → Thu, 12 Nov 2015 16:46:04 GMT
+                    <br>Keep-Alive → timeout=5, max=100
+                    <br>Server → Apache/2.2.22 (Ubuntu)
+                    <br>Transfer-Encoding → chunked
+                    <br>Vary → Accept
+                    <br>X-Frame-Options → SAMEORIGIN
+                </aside>
+                <p>In this way, OPTIONS, GET can be used on this resource.</p>
+                <p>When using http verb GET, it returns all information about the root endpoint.</p>
+                <h4>Parameters</h4>
+                <center>
+                    <table>
+                        <tr>
+                            <td align="left">message</td>
+                            <td align="left">Returns the description message of this root point.
+                                <br>
+                                <br><b>Example Values:</b> Welcome to ECS Library REST API. (TODO: write more here)</td>
+
+                        </tr>
+                        <tr>
+                            <td align="left">authors</td>
+                            <td align="left">returns the URL of publishers.
+                                <br>
+                                <br><b> Example Values: </b>http://waisvm-rfp1.ecs.soton.ac.uk/publishers</td>
+
+                        </tr>
+                        <tr>
+                            <td align="left">books</td>
+                            <td align="left">returns the URL of books.
+                                <br>
+                                <br><b> Example Values:</b> http://waisvm-rfp1.ecs.soton.ac.uk/books
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td align="left">publishers</td>
+                            <td align="left">returns the URL of publishers.
+                                <br>
+                                <br><b>Example Values: </b>http://waisvm-rfp1.ecs.soton.ac.uk/publishers</td>
+
+                        </tr>
+                    </table>
+                </center>
+                <h4>Example</h4>
+                <h5>GET http://waisvm-rfp1.ecs.soton.ac.uk/
+</h5>
+                <img src="_image/root_get_example.png" alt="root_example" align="center">
+                <div align="center"><a href="#top">Back to Top</a></div>
+            </section>
+            <section id="endpoint2">
+                <h3>2. http://waisvm-rfp1.ecs.soton.ac.uk/books
+</h3>
+                <p>When using http verb OPTIONS, we can obtain the output of this URI. The output is shown as below.</p>
+                <aside>
+                    Allow → GET, POST, HEAD, OPTIONS
+                    <br>Connection → Keep-Alive
+                    <br>Content-Type → application/xml; charset=utf-8
+                    <br>Date → Thu, 12 Nov 2015 16:46:04 GMT
+                    <br>Keep-Alive → timeout=5, max=100
+                    <br>Server → Apache/2.2.22 (Ubuntu)
+                    <br>Transfer-Encoding → chunked
+                    <br>Vary → Accept
+                    <br>X-Frame-Options → SAMEORIGIN
+                </aside>
+                <p>In this way, GET, POST, HEAD, OPTIONS can be used on this resource.</p>
+                <p>By using POST, we can post a new book in this library system. And if we just want to get a header of the response instead of body, we can use HEAD.
+                </p>
+                <p>When using http verb GET, it returns a collection of books in the library system. All books are listed in the tags &#123;list-item&#125;&#123;/list-item&#125;, and we can know the abstract of each book.
+                </p>
+
+                <h4>Example</h4>
+                <h5>GET http://waisvm-rfp1.ecs.soton.ac.uk/books</h5>
+                <h5>Part of response</h5>
+                <img src="_image/books_get_example.png" alt="books_example" width="900" height="230" align="center">
+                <h5>POST http://waisvm-rfp1.ecs.soton.ac.uk/books</h5>
+                <img src="_image/books_post_example.png" alt="books_post_example" width="900" height="660" align="center">
+                <div align="center"><a href="#top">Back to Top</a></div>
+            </section>
+            <section id="endpoint3">
+                <h3>3. http://waisvm-rfp1.ecs.soton.ac.uk/authors
+</h3>
+                <p>When using http verb OPTIONS, we can obtain the output of this URI. The output is shown as below.</p>
+                <aside>
+                    Allow → GET, POST, HEAD, OPTIONS
+                    <br>Connection → Keep-Alive
+                    <br>Content-Type → application/xml; charset=utf-8
+                    <br>Date → Thu, 12 Nov 2015 16:46:04 GMT
+                    <br>Keep-Alive → timeout=5, max=100
+                    <br>Server → Apache/2.2.22 (Ubuntu)
+                    <br>Transfer-Encoding → chunked
+                    <br>Vary → Accept
+                    <br>X-Frame-Options → SAMEORIGIN
+                </aside>
+                <p>In this way, GET, POST, HEAD, OPTIONS can be used on this resource.</p>
+                <p>By using POST, we can post a new author in this library system. And if we just want to get a header of the response instead of body, we can use HEAD.
+                </p>
+                <p>When using http verb GET, it returns a collection of authors in the library system. All authors are listed in the tags &#123;list-item&#125;&#123;/list-item&#125;, and we can know the abstract of each author.
+                </p>
+
+                <h4>Example</h4>
+                <h5>GET http://waisvm-rfp1.ecs.soton.ac.uk/authors
+</h5>
+                <h5>Part of response</h5>
+                <img src="_image/authors_get_example.png" alt="authors_example" width="900" height="120" align="center">
+                <h5>POST http://waisvm-rfp1.ecs.soton.ac.uk/authors</h5>
+                <img src="_image/authors_post_example.png" alt="authors_example" width="900" height="590" align="center">
+                <div align="center"><a href="#top">Back to Top</a></div>
+            </section>
+            <section id="endpoint4">
+                <h3>4. http://waisvm-rfp1.ecs.soton.ac.uk/publishers
+</h3>
+                <p>When using http verb OPTIONS, we can obtain the output of this URI. The output is shown as below.</p>
+                <aside>
+                    Allow → GET, POST, HEAD, OPTIONS
+                    <br>Connection → Keep-Alive
+                    <br>Content-Type → application/xml; charset=utf-8
+                    <br>Date → Thu, 12 Nov 2015 16:46:04 GMT
+                    <br>Keep-Alive → timeout=5, max=100
+                    <br>Server → Apache/2.2.22 (Ubuntu)
+                    <br>Transfer-Encoding → chunked
+                    <br>Vary → Accept
+                    <br>X-Frame-Options → SAMEORIGIN
+                </aside>
+                <p>In this way, GET, POST, HEAD, OPTIONS can be used on this resource.</p>
+                <p>By using POST, we can post a new publisher in this library system. And if we just want to get a header of the response instead of body, we can use HEAD.
+                </p>
+                <p>When using http verb GET, it returns a collection of publishers in the library system. All publishers are listed in the tags &#123;list-item&#125;&#123;/list-item&#125;, and we can know the abstract of each publisher.
+                </p>
+
+                <h4>Example</h4>
+                <h5>GET http://waisvm-rfp1.ecs.soton.ac.uk/publishers</h5>
+                <h5>Part of response</h5>
+                <img src="_image/publishers_get_example.png" alt="publishers_example" width="900" height="120" align="center">
+                <h5>POST http://waisvm-rfp1.ecs.soton.ac.uk/publishers</h5>
+                <img src="_image/publishers_post_example.png" alt="publishers_example" width="900" height="620" align="center">
+                <div align="center"><a href="#top">Back to Top</a></div>
+            </section>
+            <section id="endpoint5">
+                <h3>5. http://waisvm-rfp1.ecs.soton.ac.uk/books/ &#123;book-id&#125;</h3>
+                <p>When using http verb OPTIONS, we can obtain the output of this URI. The output is shown as below.</p>
+                <aside>
+                    Allow → GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+                    <br>Connection → Keep-Alive
+                    <br>Content-Type → application/xml; charset=utf-8
+                    <br>Date → Thu, 12 Nov 2015 16:46:04 GMT
+                    <br>Keep-Alive → timeout=5, max=100
+                    <br>Server → Apache/2.2.22 (Ubuntu)
+                    <br>Transfer-Encoding → chunked
+                    <br>Vary → Accept
+                    <br>X-Frame-Options → SAMEORIGIN
+                </aside>
+                <p>In this way, GET, PUT, PATCH, DELETE, HEAD, OPTIONS can be used on this resource.</p>
+                <p>By using PUT and PATCH, we can update information of the book we have posted in this library system. Besides, DELETE can help to delete the book or some specific information we posted. And if we just want to get a header of the response instead of body, we can use HEAD.</p>
+                <p>When using http verb GET, it returns all information about the specific book that we requested.</p>
+                <h4>Parameters</h4>
+                <center>
+                    <table>
+                        <tr>
+                            <td align="left">url</td>
+                            <td align="left">Specifies the URL of the specific book, and the book id is allocated randomly by the library system. When the user posts a new book, this value is not required and it is only readable.
+                                <br>
+                                <br><b>Example Values:</b> http://waisvm-rfp1.ecs.soton.ac.uk/books/92</td>
+                        </tr>
+                        <tr>
+                            <td align="left">title</td>
+                            <td align="left">Returns the name of the book that we requested. The type of title is string and its max length is 255. This value is required and not only readable when posting a new book.
+                                <br>
+                                <br><b> Example Values:</b> Steve Jobs</td>
+                        </tr>
+                        <tr>
+                            <td align="left">pages</td>
+                            <td align="left">Returns the page number of the book that we requested. The type of pages is integer and its value ranges from -2147483648 to 2147483647. This value is required and not only readable when posting a new book.
+                                <br>
+                                <br><b> Example Values:</b> 656</td>
+                        </tr>
+                        <tr>
+                            <td align="left">isbn13</td>
+                            <td align="left">Returns the ISBN13 code of the book that we requested. The type of ISBN13 is string and its max length is 13. This value is required and not only readable when posting a new book.
+                                <br>
+                                <br><b>Example Values: </b>9781451648539</td>
+                        </tr>
+                        <tr>
+                            <td align="left">date_published
+                            </td>
+                            <td align="left">Returns the date of publication. The type of publication date is date. This value is required and not only readable. This value is required and not only readable when posting a new book.
+                                <br>
+                                <br><b> Example Values:</b> 2011-10-24</td>
+                        </tr>
+                        <tr>
+                            <td align="left">authors</td>
+                            <td align="left">Returns the URL of author’s name. The URL is chosen from the authors endpoint when posting a new book and its type is field. Also, the URL is required and not only readable.
+                                <br>
+                                <br><b>Example Values:</b> http://waisvm-rfp1.ecs.soton.ac.uk/authors/64</td>
+                        </tr>
+                        <tr>
+                            <td align="left">publisher</td>
+                            <td align="left">Returns the URL of publisher’s name. The URL is chosen from the publisher endpoint when posting a new book and its type is field. Also, the URL is not required and not only readable.
+                                <br>
+                                <br><b>Example Values: </b>http://waisvm-rfp1.ecs.soton.ac.uk/publishers/64</td>
+                        </tr>
+                        <tr>
+                            <td align="left">owner</td>
+                            <td align="left">Returns the name of person who posts the book in this system. The type of the owner is field. And it is readable only and not required when posting a new book.
+                                <br>
+                                <br><b>Example Values: </b>sw9n14</td>
+                        </tr>
+                    </table>
+                </center>
+                <h4>Example</h4>
+                <h5>GET http://waisvm-rfp1.ecs.soton.ac.uk/books/92</h5>
+                <img src="_image/bookid_get_example_output.png" alt="bookid_get_example_output" width="900" height="190" align="center">
+                <h5>PUT&amp;PATCH http://waisvm-rfp1.ecs.soton.ac.uk/books/92</h5>
+                <h5>Before</h5>
+                <img src="_image/bookid_get_example_output.png" alt="bookid_get_example_output" width="900" height="190" align="center">
+                <h5>After</h5>
+                <img src="_image/bookid_put_example_output.png" alt="bookid_put_example_output" width="900" height="600" align="center">
+                <img src="_image/bookid_patch_example_output.png" alt="bookid_patch_example_output.png" width="900" height="600" align="center">
+                <h5>DELETE http://waisvm-rfp1.ecs.soton.ac.uk/books/315</h5>
+                <h5>Before</h5>
+                <img src="_image/bookid_delete_before_example_output.png" alt="bookid_delete_before_example_output" width="900" height="600" align="center">
+                <h5>After</h5>
+                <img src="_image/bookid_delete_after_example_output.png" alt="bookid_delete_after_example_output" width="900" height="600" align="center">
+                <div align="center"><a href="#top">Back to Top</a></div>
+            </section>
+            <section id="endpoint6">
+                <h3>6. http://waisvm-rfp1.ecs.soton.ac.uk/authors/ &#123;author-id&#125;</h3>
+                <p>When using http verb OPTIONS, we can obtain the output of this URI. The output is shown as below.</p>
+                <aside>
+                    Allow → GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+                    <br>Connection → Keep-Alive
+                    <br>Content-Type → application/xml; charset=utf-8
+                    <br>Date → Thu, 12 Nov 2015 16:46:04 GMT
+                    <br>Keep-Alive → timeout=5, max=100
+                    <br>Server → Apache/2.2.22 (Ubuntu)
+                    <br>Transfer-Encoding → chunked
+                    <br>Vary → Accept
+                    <br>X-Frame-Options → SAMEORIGIN
+                </aside>
+                <p>In this way, GET, PUT, PATCH, DELETE, HEAD, OPTIONS can be used on this resource.</p>
+                <p>By using PUT and PATCH, we can update information of the author we have posted in this library system. Besides, DELETE can help to delete the author or some specific information we posted. And if we just want to get a header of the response instead of body, we can use HEAD.</p>
+                <p>When using http verb GET, it returns all information about the specific author in the library system.</p>
+                <h4>Parameters</h4>
+                <center>
+                    <table>
+                        <tr>
+                            <td align="left">url</td>
+                            <td align="left">Specifies the URL of the author that we requested, and the author id is allocated randomly by the library system. When the user posts a new book, this value is not required and it is only readable.
+                                <br>
+                                <br><b>Example Values:</b> http://waisvm-rfp1.ecs.soton.ac.uk/authors/64</td>
+                        </tr>
+                        <tr>
+                            <td align="left">name</td>
+                            <td align="left">Returns the author’s name. The type of name is string and its max length is 255. This value is required and not only readable when posting a new book.
+                                <br>
+                                <br><b>Example Values:</b> Walter Isaacson</td>
+                        </tr>
+                        <tr>
+                            <td align="left">owner</td>
+                            <td align="left">Returns the name of person who posts the author in this system. The type of the owner is field. And it is readable only and not required when posting a new book.
+                                <br>
+                                <br><b>Example Values:</b>sw9n14</td>
+                        </tr>
+                    </table>
+                </center>
+                <h4>Example</h4>
+                <h5>GET http://waisvm-rfp1.ecs.soton.ac.uk/authors/64</h5>
+                <img src="_image/authorid_get_example_output.png" alt="authorid_get_example_output" width="900" height="100" align="center">
+                <h5>PUT&amp;PATCH http://waisvm-rfp1.ecs.soton.ac.uk/authors/64</h5>
+                <h5>Before</h5>
+                <img src="_image/authorid_get_example_output.png" alt="authorid_get_example_output" width="900" height="110" align="center">
+                <h5>After</h5>
+                <img src="_image/authorid_put_example_ouput.png" alt="authorid_put_example_ouput" width="900" height="600" align="center">
+                <img src="_image/authorid_patch_example_output.png" alt="authorid_patch_example_output" width="900" height="600" align="center">
+                <h5>DELETE http://waisvm-rfp1.ecs.soton.ac.uk/authors/239</h5>
+                <h5>Before</h5>
+                <img src="_image/authorid_delete_before_example_output.png" alt="authorid_delete_before_example_output" width="900" height="600" align="center">
+                <h5>After</h5>
+                <img src="_image/authorid_delete_after_example_output.png" alt="authorid_delete_after_example_output" width="900" height="600" align="center">
+                <div align="center"><a href="#top">Back to Top</a></div>
+            </section>
+            <section id="endpoint7">
+                <h3>7. http://waisvm-rfp1.ecs.soton.ac.uk/publishers/ &#123;publisher-id&#125;</h3>
+                <p>When using http verb OPTIONS, we can obtain the output of this URI. The output is shown as below.</p>
+                <aside>
+                    Allow → GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+                    <br>Connection → Keep-Alive
+                    <br>Content-Type → application/xml; charset=utf-8
+                    <br>Date → Thu, 12 Nov 2015 16:46:04 GMT
+                    <br>Keep-Alive → timeout=5, max=100
+                    <br>Server → Apache/2.2.22 (Ubuntu)
+                    <br>Transfer-Encoding → chunked
+                    <br>Vary → Accept
+                    <br>X-Frame-Options → SAMEORIGIN
+                </aside>
+                <p>In this way, GET, PUT, PATCH, DELETE, HEAD, OPTIONS can be used on this resource.</p>
+                <p>By using PUT and PATCH, we can update information of the publisher we have posted in this library system. Besides, DELETE can help to delete the publisher or some specific information we posted. And if we just want to get a header of the response instead of body, we can use HEAD.</p>
+                <p>When using http verb GET, it returns all information about the specific publisher in the library system.</p>
+                <h4>Parameters</h4>
+                <center>
+                    <table>
+                        <tr>
+                            <td align="left">url</td>
+                            <td align="left">Specifies the URL of the publisher that we requested, and the publisher id is allocated randomly by the library system. When the user posts a new book, this value is not required and it is only readable.
+                                <br>
+                                <br><b>Example Values:</b> http://waisvm-rfp1.ecs.soton.ac.uk/publishers/64</td>
+                        </tr>
+                        <tr>
+                            <td align="left">name</td>
+                            <td align="left">Returns the name of the publisher that we requested. The type of name is string and its max length is 255. This value is required and not only readable when posting a new book.
+                                <br>
+                                <br><b>Example Values:</b> Simon &amp; Schuster</td>
+                        </tr>
+                        <tr>
+                            <td align="left">location</td>
+                            <td align="left">Returns the name of person who posts the publisher in this system. The type of owner is field. And it is readable only and not required when posting a new book.
+                                <br>
+                                <br><b>Example Values: </b>New York</td>
+                        </tr>
+                        <tr>
+                            <td align="left">owner</td>
+                            <td align="left">Returns the name of person who posts the publisher in this system. The type of owner is field. And it is readable only and not required when posting a new book.
+                                <br>
+                                <br><b>Example Values:</b>sw9n14</td>
+                        </tr>
+                    </table>
+                </center>
+                <h4>Example</h4>
+                <h5>GET http://waisvm-rfp1.ecs.soton.ac.uk/publishers/64</h5>
+                <img src="_image/publisher_get_example_output.png" alt="publisher_get_example_output" width="900" height="100">
+                <h5>PUT&amp;PATCH http://waisvm-rfp1.ecs.soton.ac.uk/publishers/64</h5>
+                <h5>Before</h5>
+                <img src="_image/publisher_get_example_output.png" alt="publisher_get_example_output" width="900" height="110" align="center">
+                <h5>After</h5>
+                <img src="_image/publisherid_put_example_output.png" alt="publisherid_put_example_output" width="900" height="600" align="center">
+                <img src="_image/publisherid_patch_example_output.png" alt="publisherid_patch_example_output" width="900" height="600" align="center">
+                <h5>DELETE http://waisvm-rfp1.ecs.soton.ac.uk/authors/244</h5>
+                <h5>Before</h5>
+                <img src="_image/publisherid_delete_before_example_output.png" alt="publisherid_delete_before_example_output" width="900" height="600" align="center">
+                <h5>After</h5>
+                <img src="_image/publisherid_delete_after_example_output.png" alt="publisherid_delete_after_example_output" width="900" height="600" align="center">
+            </section>
+        </article>
+    </main>
+    <footer role="contentinfo">
+        <a href="#top"><b>Back to Top</b> </a>
+        <p>ReST Coursework @ Web Architecture | Shanchuan Wu (Sw9n14)</p>
+    </footer>
+</body>
+
+</html>
